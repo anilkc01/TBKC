@@ -6,6 +6,7 @@ data class UserModel(
     val gender : String = "",
     val dob : String = "",
     val email : String = "",
+    val dp : String= "",
 ){
     fun toMap(): MutableMap<String, Any> {
         return mutableMapOf(
@@ -13,7 +14,8 @@ data class UserModel(
             "fullName" to fullName,
             "gender" to gender,
             "dob" to dob,
-            "email" to email
+            "email" to email,
+            "dp" to dp
         )
     }
 }

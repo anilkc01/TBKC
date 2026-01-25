@@ -59,12 +59,12 @@ class UserViewModel(val repo: UserRepo) : ViewModel() {
         userId: String,
     ) {
         repo.getUserById(userId) { success, message, user ->
-            {
+
                 if (success) {
                     _users.postValue(user)
 
                 }
-            }
+
         }
     }
 

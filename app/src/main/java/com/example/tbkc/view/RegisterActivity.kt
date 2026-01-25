@@ -328,29 +328,7 @@ fun SignUpScreen() {
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Or text
-            Text(
-                text = "or",
-                fontSize = 14.sp,
-                color = Color.White.copy(alpha = 0.5f),
-                modifier = Modifier.align(Alignment.CenterHorizontally)
-            )
 
-            Spacer(modifier = Modifier.height(24.dp))
-
-            // Social buttons
-            Row(
-                modifier = Modifier.align(Alignment.CenterHorizontally),
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-
-                SocialButton(
-                    icon = R.drawable.google_logo,
-                    onClick = { /* Google login */ }
-                )
-            }
-
-            Spacer(modifier = Modifier.weight(1f))
 
             // Login text
             Row(
