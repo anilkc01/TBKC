@@ -1,4 +1,3 @@
-// DashboardActivity.kt
 package com.example.tbkc.view
 
 import android.os.Bundle
@@ -22,9 +21,7 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -42,7 +39,6 @@ import androidx.compose.ui.unit.dp
 import com.example.tbkc.R
 
 
-// Data class moved outside
 data class NavItem(val label: String, val icon: Int)
 
 class DashboardActivity : ComponentActivity() {
@@ -59,8 +55,8 @@ class DashboardActivity : ComponentActivity() {
 fun DashboardBody() {
     val items = listOf(
         NavItem("Home", R.drawable.baseline_home_24),
-        NavItem("Search", R.drawable.baseline_search_24),
-        NavItem("Notifications", R.drawable.baseline_notifications_24),
+        NavItem("My Treks", R.drawable.baseline_search_24),
+        NavItem("Add", R.drawable.baseline_add_24),
         NavItem("Profile", R.drawable.baseline_person_24)
     )
     var selectedItem by remember { mutableIntStateOf(0) }
@@ -96,9 +92,9 @@ fun DashboardBody() {
             ) {
                 when (selectedItem) {
                     0 -> HomeScreen()
-                    1 -> SearchScreen()
-                    2 -> AlertsScreen()
-                    3 -> SettingsScreen()
+                    1 -> MyTreks()
+                    2 -> AddTrek()
+                    3 -> ProfileScreen()
                     else -> HomeScreen()
                 }
             }
@@ -112,9 +108,9 @@ fun CurvedBottomNavigation(
     selectedIndex: Int,
     onItemSelected: (Int) -> Unit
 ) {
-    // Updated colors to match login/signup theme
-    val backgroundColor = Color(0x50FFFFFF) // Glassy white semi-transparent
-    val activeColor = Color(0xFF6C5CE7) // Purple from Sign up/Log in buttons
+
+    val backgroundColor = Color(0x50FFFFFF)
+    val activeColor = Color(0xFF6C5CE7)
 
     val animatedIndex = remember { Animatable(selectedIndex.toFloat()) }
 
@@ -204,51 +200,6 @@ fun CurvedBottomNavigation(
                 }
             }
         }
-    }
-}
-
-// Placeholder screens - replace with your actual screens
-
-
-@Composable
-fun SearchScreen() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(
-            text = "Search Screen",
-            color = Color.White,
-            style = MaterialTheme.typography.headlineMedium
-        )
-    }
-}
-
-@Composable
-fun AlertsScreen() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(
-            text = "Alerts Screen",
-            color = Color.White,
-            style = MaterialTheme.typography.headlineMedium
-        )
-    }
-}
-
-@Composable
-fun SettingsScreen() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(
-            text = "Settings Screen",
-            color = Color.White,
-            style = MaterialTheme.typography.headlineMedium
-        )
     }
 }
 
