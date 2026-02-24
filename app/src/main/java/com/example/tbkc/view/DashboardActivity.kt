@@ -93,7 +93,7 @@ fun DashboardBody() {
                 when (selectedItem) {
                     0 -> HomeScreen()
                     1 -> MyTreks()
-                    2 -> AddTrek()
+                    2 -> AddTrek(onTrekAdded =  { selectedItem = 1 })
                     3 -> ProfileScreen()
                     else -> HomeScreen()
                 }
