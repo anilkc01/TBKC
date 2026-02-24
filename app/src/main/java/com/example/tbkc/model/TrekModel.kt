@@ -10,6 +10,7 @@ data class TrekModel(
     val itinerary: List<String> = emptyList(),
     val budget: String = "",
     val recommendations: String = "",
+    val difficulty: String = "Easy",
     val image: String = ""
 ) {
     fun toMap(): Map<String, Any> {
@@ -23,6 +24,7 @@ data class TrekModel(
             "itinerary" to itinerary,
             "budget" to budget,
             "recommendations" to recommendations,
+            "difficulty" to difficulty,
             "image" to image
         )
     }
