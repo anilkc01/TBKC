@@ -1,5 +1,6 @@
 package com.example.tbkc.view
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -33,7 +34,7 @@ import com.example.tbkc.model.TrekModel
 
 @Composable
 fun TrekListItem(trek: TrekModel, onClick: () -> Unit) {
-    // Determine color based on difficulty
+
     val difficultyColor = when (trek.difficulty.lowercase()) {
         "easy" -> Color(0xFF4CAF50)
         "moderate" -> Color(0xFFFF9800)
@@ -45,9 +46,10 @@ fun TrekListItem(trek: TrekModel, onClick: () -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
-            .clickable { onClick() },
+            .clickable { onClick() }
+            .background(Color.Transparent),
         shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(containerColor = Color(0x20FFFFFF))
+        colors = CardDefaults.cardColors(containerColor = Color(0xff6c5975))
     ) {
         Row(
             modifier = Modifier
@@ -125,3 +127,4 @@ fun TrekListItem(trek: TrekModel, onClick: () -> Unit) {
         }
     }
 }
+
