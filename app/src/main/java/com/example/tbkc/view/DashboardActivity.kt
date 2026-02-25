@@ -26,6 +26,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -61,6 +62,8 @@ fun DashboardBody() {
     )
     var selectedItem by remember { mutableIntStateOf(0) }
 
+    var editingTrekId by remember { mutableStateOf<String?>(null) }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -92,10 +95,18 @@ fun DashboardBody() {
             ) {
                 when (selectedItem) {
                     0 -> HomeScreen()
-                    1 -> MyTreks()
-                    2 -> AddTrek(onTrekAdded =  { selectedItem = 1 })
+                    1 -> MyTreks(onEditClick = { id ->
+                        editingTrekId = id
+                        selectedItem = 2
+                    })
+                    2 -> AddTrek(
+                        trekId = editingTrekId,
+                        onTrekAdded = {
+                            selectedItem = 1
+                            editingTrekId = null
+                        }
+                    )
                     3 -> ProfileScreen()
-                    else -> HomeScreen()
                 }
             }
         }
@@ -109,7 +120,7 @@ fun CurvedBottomNavigation(
     onItemSelected: (Int) -> Unit
 ) {
 
-    val backgroundColor = Color(0x50FFFFFF)
+    val backgroundColor = Color(0xFF6D6478)
     val activeColor = Color(0xFF6C5CE7)
 
     val animatedIndex = remember { Animatable(selectedIndex.toFloat()) }
