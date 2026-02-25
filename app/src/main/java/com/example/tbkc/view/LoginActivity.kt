@@ -34,6 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
@@ -127,7 +128,8 @@ fun LoginScreen() {
                 value = email,
                 onValueChange = { email = it },
                 placeholder = "Email",
-                keyboardType = KeyboardType.Email
+                keyboardType = KeyboardType.Email,
+                modifier = Modifier.testTag("emailField")
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -137,6 +139,7 @@ fun LoginScreen() {
                 value = password,
                 onValueChange = { password = it },
                 placeholder = "Password",
+                modifier = Modifier.testTag("passwordField")
 
             )
 
@@ -157,6 +160,8 @@ fun LoginScreen() {
                         )
                         context.startActivity(intent)
                     }
+
+
             )
 
             Spacer(modifier = Modifier.height(32.dp))
@@ -179,7 +184,8 @@ fun LoginScreen() {
                 },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(56.dp),
+                    .height(56.dp)
+                    .testTag("LoginButton"),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFF6C5CE7)
                 ),
@@ -219,6 +225,7 @@ fun LoginScreen() {
                         )
                         context.startActivity(intent)
                     }
+                        .testTag("goToRegister")
                 )
             }
         }

@@ -373,7 +373,8 @@ fun CustomTextField(
     onValueChange: (String) -> Unit,
     placeholder: String,
     keyboardType: KeyboardType,
-    isPassword: Boolean = false
+    isPassword: Boolean = false,
+    modifier: Modifier = Modifier
 ) {
     TextField(
         value = value,
@@ -385,7 +386,7 @@ fun CustomTextField(
                 fontSize = 14.sp
             )
         },
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(56.dp),
         colors = TextFieldDefaults.colors(
@@ -410,7 +411,8 @@ fun CustomTextField(
 fun CustomPasswordField(
     value: String,
     onValueChange: (String) -> Unit,
-    placeholder: String
+    placeholder: String,
+    modifier: Modifier = Modifier
 ) {
     var passwordVisible by remember { mutableStateOf(false) }
 
@@ -424,7 +426,7 @@ fun CustomPasswordField(
                 fontSize = 14.sp
             )
         },
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(56.dp),
         colors = TextFieldDefaults.colors(
@@ -463,30 +465,6 @@ fun CustomPasswordField(
     )
 }
 
-
-// SocialButton.kt
-@Composable
-fun SocialButton(
-    icon: Int,
-    onClick: () -> Unit
-) {
-    IconButton(
-        onClick = onClick,
-        modifier = Modifier
-            .size(48.dp)
-            .background(
-                color = Color(0x30FFFFFF),
-                shape = RoundedCornerShape(24.dp)
-            )
-    ) {
-        Icon(
-            painter = painterResource(id = icon),
-            contentDescription = null,
-            tint = Color.Unspecified,
-            modifier = Modifier.size(40.dp)
-        )
-    }
-}
 
 
 @OptIn(ExperimentalMaterial3Api::class)
