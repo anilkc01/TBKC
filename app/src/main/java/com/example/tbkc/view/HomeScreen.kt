@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -32,6 +34,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -54,7 +57,6 @@ fun HomeScreen() {
     val userViewModel = remember { UserViewModel(UserRepoImplementation()) }
     val allTreks by trekViewModel.allTreks.observeAsState(initial = null)
 
-    // State for the Detail Dialog
     var showDialog by remember { mutableStateOf(false) }
     var selectedTrek by remember { mutableStateOf<TrekModel?>(null) }
 
@@ -96,7 +98,7 @@ fun HomeScreen() {
             }
         }
 
-        // --- THE BIG DIALOG ---
+
         if (showDialog && selectedTrek != null) {
             TrekDetailDialog(
                 trek = selectedTrek!!,
@@ -111,15 +113,20 @@ fun HomeScreen() {
 @Composable
 fun TrekDetailDialog(trek: TrekModel,userViewModel: UserViewModel, onDismiss: () -> Unit) {
 
+    val ownerData by userViewModel.users.observeAsState()
+
+    LaunchedEffect(trek.userId) {
+        userViewModel.getUserById(trek.userId)
+    }
 
     Dialog(
         onDismissRequest = onDismiss,
-        properties = DialogProperties(usePlatformDefaultWidth = false) // Makes it full screen width
+        properties = DialogProperties(usePlatformDefaultWidth = false)
     ) {
         Surface(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 40.dp), // Leaves space at top
+                .padding(top = 40.dp),
             color = Color(0xFF2D1B3D),
             shape = RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp)
         ) {
@@ -149,6 +156,31 @@ fun TrekDetailDialog(trek: TrekModel,userViewModel: UserViewModel, onDismiss: ()
 
                 // Info Content
                 Column(modifier = Modifier.padding(24.dp)) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        AsyncImage(
+                            model = ownerData?.dp ?: "https://via.placeholder.com/150",
+                            contentDescription = "Owner DP",
+                            modifier = Modifier
+                                .size(45.dp)
+                                .clip(RoundedCornerShape(50.dp))
+                                .background(Color.Gray),
+                            contentScale = ContentScale.Crop
+                        )
+                        Spacer(modifier = Modifier.width(12.dp))
+                        Column {
+                            Text(
+                                text = ownerData?.fullName ?: "Loading...",
+                                color = Color.White,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 16.sp
+                            )
+                            Text("Publisher", color = Color.White.copy(0.6f), fontSize = 12.sp)
+                        }
+                    }
+
                     Text(trek.title, fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color.White)
                     Text(trek.location, color = Color.Cyan, fontSize = 16.sp)
 
@@ -172,7 +204,7 @@ fun TrekDetailDialog(trek: TrekModel,userViewModel: UserViewModel, onDismiss: ()
                         }
                     }
 
-                    SectionHeader("Expert Tips")
+                    SectionHeader("Recommendations & tips")
                     Text(trek.recommendations, color = Color.White.copy(0.8f))
 
                     Spacer(modifier = Modifier.height(40.dp))

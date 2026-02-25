@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AttachMoney
 import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.Card
@@ -83,7 +82,7 @@ fun TrekListItem(trek: TrekModel, onClick: () -> Unit) {
                         maxLines = 1
                     )
 
-                    // Difficulty Badge
+
                     Surface(
                         color = difficultyColor.copy(alpha = 0.2f),
                         shape = RoundedCornerShape(8.dp)
@@ -118,7 +117,7 @@ fun TrekListItem(trek: TrekModel, onClick: () -> Unit) {
                     }
                     // Budget
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(Icons.Default.AttachMoney, null, Modifier.size(16.dp), Color(0xFF4CAF50))
+
                         Text(text = "Rs. ${trek.budget}", color = Color.White, fontSize = 13.sp, fontWeight = FontWeight.Bold)
                     }
                 }
